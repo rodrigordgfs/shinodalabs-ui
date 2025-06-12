@@ -1,5 +1,5 @@
 {
-  "name": "@shinodalabs/shinodalabs-ui",
+  "name": "shinodalabs-ui",
   "version": "1.2.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
