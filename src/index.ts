@@ -6,3 +6,4 @@ export { default as ToggleSwitch } from "./components/ToggleSwitch";
 export { default as DatePicker } from "./components/DatePicker";
 export { default as MonthDatePicker } from "./components/MonthDatePicker";
 export { default as Modal } from "./components/Modal";
+export { default as Tabs } from "./components/Tabs";
