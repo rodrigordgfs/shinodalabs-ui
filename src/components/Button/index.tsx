@@ -61,7 +61,7 @@ const Button: FC<ButtonProps> = ({
         Icon && <Icon className="h-4 w-4" />
       )}
       {children && (
-        <span className={Icon || loading ? "md:ml-2" : ""}>{children}</span>
+        <span className={Icon || loading ? "md:ml-2" : "mr-2"}>{children}</span>
       )}
     </button>
   );
