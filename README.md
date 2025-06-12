@@ -58,7 +58,7 @@ npm install shinodalabs-ui
 Certifique-se de ter essas dependências instaladas no seu projeto:
 
 ```bash
-npm install react react-dom tailwindcss lucide-react clsx
+npm install react react-dom tailwindcss lucide-react clsx react-hook-form react-day-picker date-fns
 ```
 
 ## ⚙️ Configuração do TailwindCSS
@@ -90,8 +90,8 @@ module.exports = {
   },
   plugins: [],
   // 👇 Adicione suporte ao modo escuro
-  darkMode: 'class',
-}
+  darkMode: "class",
+};
 ```
 
 ### 3. Importe os estilos do Tailwind no seu CSS
@@ -112,20 +112,22 @@ Um botão versátil e customizável com suporte a ícones e múltiplas variaçõ
 #### Importação
 
 ```tsx
-import { Button } from 'shinodalabs-ui';
+import { Button } from "shinodalabs-ui";
 ```
 
 #### Uso básico
 
 ```tsx
-import { Button } from 'shinodalabs-ui';
+import { Button } from "shinodalabs-ui";
 
 export default function Example() {
   return (
     <div className="space-y-4">
       <Button>Botão padrão</Button>
       <Button variant="blue">Botão azul</Button>
-      <Button variant="red" size="lg">Botão grande vermelho</Button>
+      <Button variant="red" size="lg">
+        Botão grande vermelho
+      </Button>
     </div>
   );
 }
@@ -134,16 +136,22 @@ export default function Example() {
 #### Com ícones
 
 ```tsx
-import { Button } from 'shinodalabs-ui';
-import { Plus, Download, Trash2, Settings } from 'lucide-react';
+import { Button } from "shinodalabs-ui";
+import { Plus, Download, Trash2, Settings } from "lucide-react";
 
 export default function ButtonsWithIcons() {
   return (
     <div className="flex gap-4">
       <Button icon={Plus}>Adicionar</Button>
-      <Button variant="blue" icon={Download}>Download</Button>
-      <Button variant="red" icon={Trash2}>Excluir</Button>
-      <Button variant="neutral" icon={Settings}>Configurações</Button>
+      <Button variant="blue" icon={Download}>
+        Download
+      </Button>
+      <Button variant="red" icon={Trash2}>
+        Excluir
+      </Button>
+      <Button variant="neutral" icon={Settings}>
+        Configurações
+      </Button>
     </div>
   );
 }
@@ -152,28 +160,26 @@ export default function ButtonsWithIcons() {
 #### Estados e interações
 
 ```tsx
-import { Button } from 'shinodalabs-ui';
-import { Save, Send } from 'lucide-react';
+import { Button } from "shinodalabs-ui";
+import { Save, Send } from "lucide-react";
 
 export default function ButtonStates() {
   const handleClick = () => {
-    alert('Botão clicado!');
+    alert("Botão clicado!");
   };
 
   return (
     <div className="space-y-4">
       {/* Botão normal */}
       <Button onClick={handleClick}>Clique aqui</Button>
-      
+
       {/* Botão desabilitado */}
-      <Button disabled icon={Save}>Salvando...</Button>
-      
+      <Button disabled icon={Save}>
+        Salvando...
+      </Button>
+
       {/* Botão com classe customizada */}
-      <Button 
-        variant="blue" 
-        className="w-full" 
-        icon={Send}
-      >
+      <Button variant="blue" className="w-full" icon={Send}>
         Enviar formulário
       </Button>
     </div>
@@ -183,16 +189,16 @@ export default function ButtonStates() {
 
 #### Props do Button
 
-| Propriedade | Tipo | Padrão | Descrição |
-|-------------|------|--------|-----------|
-| `variant` | `"emerald"` \| `"blue"` \| `"red"` \| `"neutral"` | `"emerald"` | Define a cor do botão |
-| `size` | `"sm"` \| `"md"` \| `"lg"` | `"md"` | Define o tamanho do botão |
-| `icon` | `LucideIcon` | `undefined` | Ícone do Lucide React exibido à esquerda do texto |
-| `children` | `React.ReactNode` | - | Conteúdo do botão (texto, elementos, etc.) |
-| `disabled` | `boolean` | `false` | Desabilita o botão |
-| `className` | `string` | `undefined` | Classes CSS adicionais |
-| `onClick` | `(event: MouseEvent) => void` | `undefined` | Função executada ao clicar |
-| `...props` | `HTMLButtonAttributes` | - | Todas as props nativas do elemento `<button>` |
+| Propriedade | Tipo                                              | Padrão      | Descrição                                         |
+| ----------- | ------------------------------------------------- | ----------- | ------------------------------------------------- |
+| `variant`   | `"emerald"` \| `"blue"` \| `"red"` \| `"neutral"` | `"emerald"` | Define a cor do botão                             |
+| `size`      | `"sm"` \| `"md"` \| `"lg"`                        | `"md"`      | Define o tamanho do botão                         |
+| `icon`      | `LucideIcon`                                      | `undefined` | Ícone do Lucide React exibido à esquerda do texto |
+| `children`  | `React.ReactNode`                                 | -           | Conteúdo do botão (texto, elementos, etc.)        |
+| `disabled`  | `boolean`                                         | `false`     | Desabilita o botão                                |
+| `className` | `string`                                          | `undefined` | Classes CSS adicionais                            |
+| `onClick`   | `(event: MouseEvent) => void`                     | `undefined` | Função executada ao clicar                        |
+| `...props`  | `HTMLButtonAttributes`                            | -           | Todas as props nativas do elemento `<button>`     |
 
 #### Variações de cor
 
@@ -222,18 +228,18 @@ Um componente de input versátil com suporte a diferentes tipos, validação, fo
 #### Importação
 
 ```tsx
-import { Input } from 'shinodalabs-ui';
+import { Input } from "shinodalabs-ui";
 ```
 
 #### Uso básico
 
 ```tsx
-import { Input } from 'shinodalabs-ui';
-import { useState } from 'react';
+import { Input } from "shinodalabs-ui";
+import { useState } from "react";
 
 export default function BasicInputs() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   return (
     <div className="space-y-4">
@@ -243,7 +249,7 @@ export default function BasicInputs() {
         onChange={(e) => setName(e.target.value)}
         placeholder="Digite seu nome"
       />
-      
+
       <Input
         label="E-mail"
         type="email"
@@ -259,11 +265,11 @@ export default function BasicInputs() {
 #### Input com senha
 
 ```tsx
-import { Input } from 'shinodalabs-ui';
-import { useState } from 'react';
+import { Input } from "shinodalabs-ui";
+import { useState } from "react";
 
 export default function PasswordInput() {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
 
   return (
     <Input
@@ -280,12 +286,12 @@ export default function PasswordInput() {
 #### Input numérico
 
 ```tsx
-import { Input } from 'shinodalabs-ui';
-import { useState } from 'react';
+import { Input } from "shinodalabs-ui";
+import { useState } from "react";
 
 export default function NumericInput() {
-  const [phone, setPhone] = useState('');
-  const [code, setCode] = useState('');
+  const [phone, setPhone] = useState("");
+  const [code, setCode] = useState("");
 
   return (
     <div className="space-y-4">
@@ -297,7 +303,7 @@ export default function NumericInput() {
         maxLength={11}
         placeholder="11999999999"
       />
-      
+
       <Input
         label="Código de verificação"
         type="number"
@@ -315,8 +321,8 @@ export default function NumericInput() {
 #### Input de moeda
 
 ```tsx
-import { Input } from 'shinodalabs-ui';
-import { useState } from 'react';
+import { Input } from "shinodalabs-ui";
+import { useState } from "react";
 
 export default function MoneyInput() {
   const [price, setPrice] = useState(0);
@@ -332,7 +338,7 @@ export default function MoneyInput() {
         currency="BRL"
         language="pt-BR"
       />
-      
+
       <Input
         label="Salário (USD)"
         type="money"
@@ -349,21 +355,21 @@ export default function MoneyInput() {
 #### Input com validação e elementos extras
 
 ```tsx
-import { Input } from 'shinodalabs-ui';
-import { useState } from 'react';
-import { Info } from 'lucide-react';
+import { Input } from "shinodalabs-ui";
+import { useState } from "react";
+import { Info } from "lucide-react";
 
 export default function AdvancedInput() {
-  const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
 
   const validateUsername = (value: string) => {
     if (value.length < 3) {
-      setError('Nome de usuário deve ter pelo menos 3 caracteres');
+      setError("Nome de usuário deve ter pelo menos 3 caracteres");
     } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
-      setError('Apenas letras, números e underscore são permitidos');
+      setError("Apenas letras, números e underscore são permitidos");
     } else {
-      setError('');
+      setError("");
     }
   };
 
@@ -391,23 +397,23 @@ export default function AdvancedInput() {
 
 #### Props do Input
 
-| Propriedade | Tipo | Padrão | Descrição |
-|-------------|------|--------|-----------|
-| `label` | `string` | - | **Obrigatório.** Texto do label do input |
-| `type` | `string` | `"text"` | Tipo do input: `"text"`, `"email"`, `"password"`, `"number"`, `"money"` |
-| `value` | `string \| number` | `undefined` | Valor controlado do input |
-| `onChange` | `function` | `undefined` | Função chamada quando o valor muda |
-| `error` | `string` | `undefined` | Mensagem de erro a ser exibida |
-| `placeholder` | `string` | `undefined` | Texto placeholder |
-| `disabled` | `boolean` | `false` | Desabilita o input |
-| `maxLength` | `number` | `undefined` | Limite máximo de caracteres (para type="number") |
-| `headerRight` | `React.ReactNode` | `undefined` | Elemento exibido à direita do label |
-| `centerContent` | `boolean` | `false` | Centraliza o conteúdo do input |
-| `currency` | `string` | `"BRL"` | Código da moeda (para type="money") |
-| `language` | `string` | `"pt-BR"` | Idioma para formatação (para type="money") |
-| `id` | `string` | `auto-generated` | ID do input (gerado automaticamente se não fornecido) |
-| `className` | `string` | `undefined` | Classes CSS adicionais |
-| `...props` | `HTMLInputAttributes` | - | Todas as props nativas do elemento `<input>` |
+| Propriedade     | Tipo                  | Padrão           | Descrição                                                               |
+| --------------- | --------------------- | ---------------- | ----------------------------------------------------------------------- |
+| `label`         | `string`              | -                | **Obrigatório.** Texto do label do input                                |
+| `type`          | `string`              | `"text"`         | Tipo do input: `"text"`, `"email"`, `"password"`, `"number"`, `"money"` |
+| `value`         | `string \| number`    | `undefined`      | Valor controlado do input                                               |
+| `onChange`      | `function`            | `undefined`      | Função chamada quando o valor muda                                      |
+| `error`         | `string`              | `undefined`      | Mensagem de erro a ser exibida                                          |
+| `placeholder`   | `string`              | `undefined`      | Texto placeholder                                                       |
+| `disabled`      | `boolean`             | `false`          | Desabilita o input                                                      |
+| `maxLength`     | `number`              | `undefined`      | Limite máximo de caracteres (para type="number")                        |
+| `headerRight`   | `React.ReactNode`     | `undefined`      | Elemento exibido à direita do label                                     |
+| `centerContent` | `boolean`             | `false`          | Centraliza o conteúdo do input                                          |
+| `currency`      | `string`              | `"BRL"`          | Código da moeda (para type="money")                                     |
+| `language`      | `string`              | `"pt-BR"`        | Idioma para formatação (para type="money")                              |
+| `id`            | `string`              | `auto-generated` | ID do input (gerado automaticamente se não fornecido)                   |
+| `className`     | `string`              | `undefined`      | Classes CSS adicionais                                                  |
+| `...props`      | `HTMLInputAttributes` | -                | Todas as props nativas do elemento `<input>`                            |
 
 #### Tipos especiais
 
@@ -474,18 +480,18 @@ Todos os componentes suportam automaticamente o modo escuro quando você configu
 
 ```tsx
 // Componente para alternar tema
-import { useState, useEffect } from 'react';
-import { Button } from 'shinodalabs-ui';
-import { Moon, Sun } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Button } from "shinodalabs-ui";
+import { Moon, Sun } from "lucide-react";
 
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     if (isDark) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [isDark]);
 
@@ -495,7 +501,7 @@ export default function ThemeToggle() {
       icon={isDark ? Sun : Moon}
       onClick={() => setIsDark(!isDark)}
     >
-      {isDark ? 'Modo Claro' : 'Modo Escuro'}
+      {isDark ? "Modo Claro" : "Modo Escuro"}
     </Button>
   );
 }
@@ -508,9 +514,7 @@ Os componentes são responsivos por padrão. O ícone do botão, por exemplo, te
 ```tsx
 // Em telas pequenas, o ícone fica colado ao texto
 // Em telas médias e maiores (md+), há espaçamento
-<Button icon={Plus}>
-  Adicionar item
-</Button>
+<Button icon={Plus}>Adicionar item</Button>
 ```
 
 ## 🎯 Exemplos Práticos
@@ -518,30 +522,32 @@ Os componentes são responsivos por padrão. O ícone do botão, por exemplo, te
 ### Formulário de login completo
 
 ```tsx
-import { Button, Input } from 'shinodalabs-ui';
-import { LogIn, UserPlus } from 'lucide-react';
-import { useState } from 'react';
+import { Button, Input } from "shinodalabs-ui";
+import { LogIn, UserPlus } from "lucide-react";
+import { useState } from "react";
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{email?: string; password?: string}>({});
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {}
+  );
 
   const validateForm = () => {
-    const newErrors: {email?: string; password?: string} = {};
-    
+    const newErrors: { email?: string; password?: string } = {};
+
     if (!email) {
-      newErrors.email = 'E-mail é obrigatório';
+      newErrors.email = "E-mail é obrigatório";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'E-mail inválido';
+      newErrors.email = "E-mail inválido";
     }
-    
+
     if (!password) {
-      newErrors.password = 'Senha é obrigatória';
+      newErrors.password = "Senha é obrigatória";
     } else if (password.length < 6) {
-      newErrors.password = 'Senha deve ter pelo menos 6 caracteres';
+      newErrors.password = "Senha deve ter pelo menos 6 caracteres";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -549,14 +555,14 @@ export default function LoginForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Login válido:', { email, password });
+      console.log("Login válido:", { email, password });
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto p-6">
       <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-      
+
       <Input
         label="E-mail"
         type="email"
@@ -565,7 +571,7 @@ export default function LoginForm() {
         error={errors.email}
         placeholder="seu@email.com"
       />
-      
+
       <Input
         label="Senha"
         type="password"
@@ -574,19 +580,14 @@ export default function LoginForm() {
         error={errors.password}
         placeholder="Digite sua senha"
       />
-      
+
       <div className="flex gap-2 pt-4">
-        <Button 
-          type="submit"
-          variant="blue" 
-          icon={LogIn}
-          className="flex-1"
-        >
+        <Button type="submit" variant="blue" icon={LogIn} className="flex-1">
           Entrar
         </Button>
-        <Button 
+        <Button
           type="button"
-          variant="neutral" 
+          variant="neutral"
           icon={UserPlus}
           className="flex-1"
         >
@@ -601,26 +602,26 @@ export default function LoginForm() {
 ### Formulário de produto com preço
 
 ```tsx
-import { Button, Input } from 'shinodalabs-ui';
-import { Save, Package } from 'lucide-react';
-import { useState } from 'react';
+import { Button, Input } from "shinodalabs-ui";
+import { Save, Package } from "lucide-react";
+import { useState } from "react";
 
 export default function ProductForm() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
 
   return (
     <form className="space-y-4 max-w-md mx-auto p-6">
       <h2 className="text-2xl font-bold text-center mb-6">Novo Produto</h2>
-      
+
       <Input
         label="Nome do produto"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Digite o nome do produto"
       />
-      
+
       <Input
         label="Preço"
         type="money"
@@ -629,7 +630,7 @@ export default function ProductForm() {
         currency="BRL"
         language="pt-BR"
       />
-      
+
       <Input
         label="Código do produto"
         type="number"
@@ -638,16 +639,10 @@ export default function ProductForm() {
         maxLength={10}
         centerContent
         placeholder="0000000000"
-        headerRight={
-          <span className="text-xs text-zinc-500">10 dígitos</span>
-        }
+        headerRight={<span className="text-xs text-zinc-500">10 dígitos</span>}
       />
-      
-      <Button 
-        type="submit"
-        icon={Save}
-        className="w-full"
-      >
+
+      <Button type="submit" icon={Save} className="w-full">
         Salvar Produto
       </Button>
     </form>
@@ -658,15 +653,15 @@ export default function ProductForm() {
 ### Dashboard com ações
 
 ```tsx
-import { Button } from 'shinodalabs-ui';
-import { Plus, Download, Filter, Search } from 'lucide-react';
+import { Button } from "shinodalabs-ui";
+import { Plus, Download, Filter, Search } from "lucide-react";
 
 export default function Dashboard() {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Dashboard</h1>
-        
+
         <div className="flex gap-2">
           <Button variant="neutral" icon={Filter} size="sm">
             Filtrar
@@ -674,12 +669,10 @@ export default function Dashboard() {
           <Button variant="blue" icon={Download} size="sm">
             Exportar
           </Button>
-          <Button icon={Plus}>
-            Novo Item
-          </Button>
+          <Button icon={Plus}>Novo Item</Button>
         </div>
       </div>
-      
+
       {/* Conteúdo do dashboard */}
     </div>
   );
