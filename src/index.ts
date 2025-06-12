@@ -8,3 +8,4 @@ export { default as MonthDatePicker } from "./components/MonthDatePicker";
 export { default as Modal } from "./components/Modal";
 export { default as Tabs } from "./components/Tabs";
 export { default as ProgressBar } from "./components/ProgressBar";
+export { default as IconButton } from "./components/IconButton";
