@@ -2,6 +2,41 @@
 
 Uma biblioteca de componentes React moderna e elegante, construída com TailwindCSS e TypeScript. Projetada para oferecer componentes reutilizáveis com excelente experiência de desenvolvedor.
 
+## 📋 Índice
+
+- [✨ Características](#-características)
+- [📦 Instalação](#-instalação)
+- [⚙️ Configuração do TailwindCSS](#️-configuração-do-tailwindcss)
+- [🧩 Componentes](#-componentes)
+  - [Button](#button)
+    - [Importação](#importação)
+    - [Uso básico](#uso-básico)
+    - [Com ícones](#com-ícones)
+    - [Estados e interações](#estados-e-interações)
+    - [Props do Button](#props-do-button)
+    - [Variações de cor](#variações-de-cor)
+    - [Tamanhos disponíveis](#tamanhos-disponíveis)
+  - [Input](#input)
+    - [Importação](#importação-1)
+    - [Uso básico](#uso-básico-1)
+    - [Input com senha](#input-com-senha)
+    - [Input numérico](#input-numérico)
+    - [Input de moeda](#input-de-moeda)
+    - [Input com validação](#input-com-validação-e-elementos-extras)
+    - [Props do Input](#props-do-input)
+    - [Tipos especiais](#tipos-especiais)
+- [🌙 Suporte ao Modo Escuro](#-suporte-ao-modo-escuro)
+- [📱 Responsividade](#-responsividade)
+- [🎯 Exemplos Práticos](#-exemplos-práticos)
+  - [Formulário de login completo](#formulário-de-login-completo)
+  - [Formulário de produto](#formulário-de-produto-com-preço)
+  - [Dashboard com ações](#dashboard-com-ações)
+- [🔧 Desenvolvimento](#-desenvolvimento)
+- [📄 Licença](#-licença)
+- [🤝 Contribuição](#-contribuição)
+
+---
+
 ## ✨ Características
 
 - 🎯 **Componentes modernos** com design limpo e profissional
