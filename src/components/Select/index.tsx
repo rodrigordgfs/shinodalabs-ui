@@ -12,9 +12,11 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       id || `select-${label?.toLowerCase().replace(/\s+/g, "-")}`;
     return (
       <div>
-        <label htmlFor={selectId} className="block text-sm font-medium mb-2">
-          {label}
-        </label>
+        {label && (
+          <label htmlFor={selectId} className="block text-sm font-medium mb-2">
+            {label}
+          </label>
+        )}
         <select
           id={selectId}
           ref={ref}
