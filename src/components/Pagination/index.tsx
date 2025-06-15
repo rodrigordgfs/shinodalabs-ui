@@ -1,0 +1,101 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Select from "../Select";
+
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  perPage?: number;
+  optionsItemsPerPage: {
+    label: string;
+    value: string;
+  }[];
+  onPageChange: (page: number) => void;
+  onItemsPerPageChange: (itemsPerPage: number) => void;
+  labels: {
+    previous: string;
+    next: string;
+    showing: string;
+    of: string;
+    results: string;
+    page: string;
+    itemsPerPage: string;
+  };
+}
+
+const Pagination = ({
+  currentPage,
+  totalPages,
+  totalItems,
+  onPageChange,
+  perPage,
+  onItemsPerPageChange,
+  optionsItemsPerPage,
+  labels,
+}: PaginationProps) => {
+  const [itemsPerPage, setItemsPerPage] = useState(perPage || 10);
+
+  useEffect(() => {
+    onItemsPerPageChange(itemsPerPage);
+  }, [itemsPerPage, onItemsPerPageChange, onPageChange]);
+
+  const handlePrevious = () => {
+    if (currentPage > 1) onPageChange(currentPage - 1);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) onPageChange(currentPage + 1);
+  };
+
+  return (
+    <div className="flex flex-col sm:flex-row items-center justify-between py-4 px-6 border-t border-zinc-200 dark:border-zinc-800 text-sm text-zinc-600 dark:text-zinc-400 gap-2">
+      <span className="hidden sm:inline">
+        {labels.showing} {(currentPage - 1) * itemsPerPage + 1} -{" "}
+        {Math.min(currentPage * itemsPerPage, totalItems)} {labels.of}{" "}
+        {totalItems} {labels.results}
+      </span>
+
+      <div className="flex flex-col sm:flex-row items-center gap-2">
+        <Select
+          id="itemsPerPageSelect"
+          value={itemsPerPage}
+          onChange={(e) => setItemsPerPage(Number(e.target.value))}
+          aria-label={labels.itemsPerPage}
+          options={optionsItemsPerPage}
+          className="h-[37px] min-w-[100px]"
+        />
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handlePrevious}
+            disabled={currentPage === 1}
+            className="w-[37px] h-[37px] flex items-center justify-center border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
+            title={labels.previous}
+            aria-label={labels.previous}
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          <span className="px-2">
+            {labels.page} {currentPage} {labels.of} {totalPages}
+          </span>
+
+          <button
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+            className="w-[37px] h-[37px] flex items-center justify-center border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
+            title={labels.next}
+            aria-label={labels.next}
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Pagination;
