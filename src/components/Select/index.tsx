@@ -1,14 +1,15 @@
 import React from "react";
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label: string;
+  label?: string;
   options: { value: string; label: string }[];
   error?: string;
 }
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({ label, options, id, error, ...props }, ref) => {
-    const selectId = id || `select-${label.toLowerCase().replace(/\s+/g, "-")}`;
+    const selectId =
+      id || `select-${label?.toLowerCase().replace(/\s+/g, "-")}`;
     return (
       <div>
         <label htmlFor={selectId} className="block text-sm font-medium mb-2">
