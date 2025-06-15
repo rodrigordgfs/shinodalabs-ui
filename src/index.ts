@@ -10,3 +10,4 @@ export { default as Tabs } from "./components/Tabs";
 export { default as ProgressBar } from "./components/ProgressBar";
 export { default as IconButton } from "./components/IconButton";
 export { default as Dialog } from "./components/Dialog";
+export { default as Pagination } from "./components/Pagination";
