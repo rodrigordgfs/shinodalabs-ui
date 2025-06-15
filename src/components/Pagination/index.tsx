@@ -65,14 +65,14 @@ const Pagination = ({
           onChange={(e) => setItemsPerPage(Number(e.target.value))}
           aria-label={labels.itemsPerPage}
           options={optionsItemsPerPage}
-          className="h-[37px] min-w-[100px]"
+          className="h-9 min-w-[100px]"
         />
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-row items-center gap-2">
           <button
             onClick={handlePrevious}
             disabled={currentPage === 1}
-            className="w-[37px] h-[37px] flex items-center justify-center border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
+            className="w-9 h-9 flex items-center justify-center border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
             title={labels.previous}
             aria-label={labels.previous}
           >
@@ -86,7 +86,7 @@ const Pagination = ({
           <button
             onClick={handleNext}
             disabled={currentPage === totalPages}
-            className="w-[37px] h-[37px] flex items-center justify-center border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
+            className="w-9 h-9 flex items-center justify-center border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
             title={labels.next}
             aria-label={labels.next}
           >
