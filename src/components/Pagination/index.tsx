@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import IconButton from "../IconButton";
 import Select from "../Select";
 
 interface PaginationProps {
@@ -65,33 +66,28 @@ const Pagination = ({
           onChange={(e) => setItemsPerPage(Number(e.target.value))}
           aria-label={labels.itemsPerPage}
           options={optionsItemsPerPage}
-          className="h-9 min-w-[100px]"
         />
 
         <div className="flex flex-row items-center gap-2">
-          <button
+          <IconButton
             onClick={handlePrevious}
             disabled={currentPage === 1}
-            className="w-9 h-9 flex items-center justify-center border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
-            title={labels.previous}
+            icon={ChevronLeft}
+            name={labels.previous}
             aria-label={labels.previous}
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
+          />
 
           <span className="px-2">
             {labels.page} {currentPage} {labels.of} {totalPages}
           </span>
 
-          <button
+          <IconButton
             onClick={handleNext}
             disabled={currentPage === totalPages}
-            className="w-9 h-9 flex items-center justify-center border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-all"
-            title={labels.next}
+            icon={ChevronRight}
+            name={labels.next}
             aria-label={labels.next}
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
+          />
         </div>
       </div>
     </div>
