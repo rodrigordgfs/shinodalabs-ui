@@ -9,12 +9,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "sm" | "md" | "lg";
   icon?: LucideIcon;
   loading?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   disabled?: boolean;
 }
 
 const baseStyles =
-  "flex gap-2 items-center h-10 justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition duration-200 ease-in-out cursor-pointer";
+  "flex items-center h-10 justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition duration-200 ease-in-out cursor-pointer";
 
 const variants: Record<string, string> = {
   emerald:
@@ -42,6 +42,8 @@ const Button: FC<ButtonProps> = ({
   ...props
 }) => {
   const isDisabled = disabled || loading;
+  const hasIcon = Icon || loading;
+  const showGap = hasIcon && children;
 
   return (
     <button
@@ -50,6 +52,7 @@ const Button: FC<ButtonProps> = ({
         baseStyles,
         variants[variant],
         sizes[size],
+        showGap && "gap-2",
         isDisabled && "opacity-50 cursor-not-allowed focus:ring-0",
         className
       )}
