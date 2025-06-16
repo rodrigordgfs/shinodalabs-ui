@@ -59,17 +59,17 @@ const Pagination = ({
         {totalItems} {labels.results}
       </span>
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-2 w-full">
+      <div className="flex flex-row sm:flex-col items-center justify-center gap-2">
         <Select
           id="itemsPerPageSelect"
-          className="w-full sm:w-auto"
+          className="flex-1"
           value={itemsPerPage}
           onChange={(e) => setItemsPerPage(Number(e.target.value))}
           aria-label={labels.itemsPerPage}
           options={optionsItemsPerPage}
         />
 
-        <div className="flex flex-row justify-between sm:justify-center items-center gap-2 w-full sm:w-auto">
+        <div className="flex flex-row items-center gap-2">
           <IconButton
             onClick={handlePrevious}
             disabled={currentPage === 1}
