@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, MouseEvent } from "react";
 import Button from "../Button";
 
 interface ModalProps {
@@ -26,15 +26,24 @@ const Modal = ({
 }: ModalProps) => {
   if (!isOpen) return null;
 
+  const handleBackdropClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 flex items-center justify-center p-4 sm:p-6">
+    <div
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 flex items-center justify-center p-4 sm:p-6"
+      onClick={handleBackdropClick}
+    >
       <div
         className="
-          w-full max-w-xl
+          w-full sm:w-[90vw] md:w-[600px] lg:w-[720px] xl:w-[800px]
           bg-white dark:bg-zinc-950
           border border-zinc-200 dark:border-zinc-800
           rounded-lg
-          flex flex-col justify-between
+          flex flex-col
           max-h-[90vh]
           overflow-hidden
         "
