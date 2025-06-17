@@ -30,11 +30,13 @@ const Modal = ({
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 flex items-center justify-center p-4 sm:p-6">
       <div
         className="
-          w-full h-full sm:h-auto sm:max-w-xl
+          w-full max-w-xl
           bg-white dark:bg-zinc-950
           border border-zinc-200 dark:border-zinc-800
-          sm:rounded-lg rounded-none
+          rounded-lg
           flex flex-col justify-between
+          max-h-[90vh]
+          overflow-hidden
         "
       >
         <div className="p-6 overflow-y-auto">
