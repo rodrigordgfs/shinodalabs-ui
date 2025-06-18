@@ -41,7 +41,6 @@ const Modal = ({
     >
       <div
         className="
-          modal
           bg-white dark:bg-zinc-950
           border border-zinc-200 dark:border-zinc-800
           rounded-lg
@@ -50,7 +49,7 @@ const Modal = ({
           overflow-visible
           z-50
           relative
-          w-full max-w-lg
+          w-auto max-w-[90vw]
         "
       >
         <div className="p-6 overflow-y-auto max-h-[calc(90vh - 96px)]">
