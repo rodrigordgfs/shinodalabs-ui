@@ -13,3 +13,4 @@ export { default as IconButton } from "./components/IconButton";
 export { default as Dialog } from "./components/Dialog";
 export { default as Pagination } from "./components/Pagination";
 export { default as DateRange } from "./components/DateRange";
+export { default as FilterCard } from "./components/FilterCard";
