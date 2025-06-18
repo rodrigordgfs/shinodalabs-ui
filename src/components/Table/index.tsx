@@ -1,3 +1,4 @@
+import { Edit, Trash } from "lucide-react";
 import React from "react";
 
 interface TableProps {
@@ -79,18 +80,22 @@ function TableRow<T extends Record<string, any>>({
               <div className="flex justify-end gap-2">
                 {onClickEdit && (
                   <button
-                    className="p-1 rounded-md text-zinc-500 hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-500 transition-all"
+                    className="p-1 rounded-md text-zinc-500 hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-500 cursor-pointer transition-all"
+                    aria-label="Editar transação"
+                    title="Editar transação"
                     onClick={onClickEdit}
                   >
-                    ✏️
+                    <Edit className="h-4 w-4" />
                   </button>
                 )}
                 {onClickDelete && (
                   <button
-                    className="p-1 rounded-md text-zinc-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 transition-all"
+                    className="p-1 rounded-md text-zinc-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 cursor-pointer transition-all"
+                    aria-label="Deletar transação"
+                    title="Deletar transação"
                     onClick={onClickDelete}
                   >
-                    🗑️
+                    <Trash className="h-4 w-4" />
                   </button>
                 )}
               </div>
