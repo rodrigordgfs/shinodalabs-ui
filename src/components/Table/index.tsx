@@ -19,7 +19,7 @@ const TableRoot = ({ children }: TableProps) => {
 interface HeaderColumn {
   key: string;
   label: React.ReactNode;
-  align?: "left" | "right";
+  align?: "left" | "right" | "center";
   hidden?: boolean;
 }
 
@@ -52,7 +52,7 @@ interface TableRowProps<T> {
   data: T;
   columns: {
     key: keyof T;
-    align?: "left" | "right";
+    align?: "left" | "right" | "center";
     hidden?: boolean;
     render?: (value: any, row: T) => React.ReactNode;
   }[];
