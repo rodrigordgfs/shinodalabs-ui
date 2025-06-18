@@ -52,7 +52,7 @@ const Pagination = ({
   };
 
   return (
-    <div className="flex flex-row sm:flex-col items-center justify-between p-6 border-zinc-200 dark:border-zinc-800 text-sm text-zinc-600 dark:text-zinc-400 gap-2">
+    <div className="rounded-lg border bg-white dark:bg-zinc-950 shadow-sm flex flex-row sm:flex-col items-center justify-between p-6 border-zinc-200 dark:border-zinc-800 text-sm text-zinc-600 dark:text-zinc-400 gap-2">
       <span className="hidden sm:inline">
         {labels.showing} {(currentPage - 1) * itemsPerPage + 1} -{" "}
         {Math.min(currentPage * itemsPerPage, totalItems)} {labels.of}{" "}
