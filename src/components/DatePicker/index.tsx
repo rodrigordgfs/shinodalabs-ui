@@ -25,6 +25,8 @@ const DatePicker = <TFormValues extends FieldValues>({
   const id = useId();
   const containerRef = useRef<HTMLDivElement>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [position, setPosition] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
     if (!field.value) {
@@ -47,6 +49,35 @@ const DatePicker = <TFormValues extends FieldValues>({
       setSelectedDate(undefined);
     }
   }, [field.value]);
+
+  useEffect(() => {
+    const updatePosition = () => {
+      if (!inputRef.current || !calendarRef.current) return;
+      const inputRect = inputRef.current.getBoundingClientRect();
+      const calendarHeight = calendarRef.current.offsetHeight;
+      const spaceBelow = window.innerHeight - inputRect.bottom;
+
+      const fitsBelow = spaceBelow > calendarHeight + 20;
+      const top = fitsBelow
+        ? inputRect.bottom + window.scrollY + 8
+        : window.innerHeight - calendarHeight - 20;
+
+      setPosition({
+        top,
+        left: inputRect.left + window.scrollX,
+      });
+    };
+
+    if (showCalendar) {
+      updatePosition();
+      window.addEventListener("resize", updatePosition);
+      window.addEventListener("scroll", updatePosition);
+      return () => {
+        window.removeEventListener("resize", updatePosition);
+        window.removeEventListener("scroll", updatePosition);
+      };
+    }
+  }, [showCalendar]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -77,6 +108,7 @@ const DatePicker = <TFormValues extends FieldValues>({
       </label>
 
       <input
+        ref={inputRef}
         id={id}
         type="text"
         readOnly
@@ -89,81 +121,81 @@ const DatePicker = <TFormValues extends FieldValues>({
       />
 
       {showCalendar && (
-        <>
-          <div className="fixed inset-0 z-40 bg-black/10 backdrop-blur-sm" />
-
-          <div
-            ref={calendarRef}
-            className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-              bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-lg p-4 w-[320px] max-w-full"
-          >
-            <div className="flex justify-between items-center mb-2">
-              <span className="font-medium text-sm text-zinc-700 dark:text-zinc-200">
-                Selecione uma data
-              </span>
-              <div className="flex gap-2 items-center">
-                <button
-                  type="button"
-                  className="text-xs text-emerald-500 cursor-pointer"
-                  onClick={() => {
-                    field.onChange("");
-                    setShowCalendar(false);
-                  }}
-                >
-                  Limpar
-                </button>
-                <button
-                  type="button"
-                  className="text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 text-sm cursor-pointer p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full"
-                  onClick={() => setShowCalendar(false)}
-                  aria-label="Fechar calendário"
-                >
-                  <XIcon className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            <DayPicker
-              mode="single"
-              navLayout="around"
-              selected={selectedDate}
-              onSelect={(date) => {
-                if (date) {
-                  const localDate = new Date(
-                    date.getFullYear(),
-                    date.getMonth(),
-                    date.getDate(),
-                    12,
-                    0,
-                    0
-                  );
-                  const yyyy = localDate.getFullYear();
-                  const mm = String(localDate.getMonth() + 1).padStart(2, "0");
-                  const dd = String(localDate.getDate()).padStart(2, "0");
-                  const formattedDate = `${yyyy}-${mm}-${dd}`;
-
-                  field.onChange(formattedDate);
-                } else {
+        <div
+          ref={calendarRef}
+          className="absolute z-50 bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-lg p-4 w-[320px] max-w-full"
+          style={{
+            top: position.top,
+            left: position.left,
+            position: "absolute",
+          }}
+        >
+          <div className="flex justify-between items-center mb-2">
+            <span className="font-medium text-sm text-zinc-700 dark:text-zinc-200">
+              Selecione uma data
+            </span>
+            <div className="flex gap-2 items-center">
+              <button
+                type="button"
+                className="text-xs text-emerald-500 cursor-pointer"
+                onClick={() => {
                   field.onChange("");
-                }
-                setShowCalendar(false);
-              }}
-              locale={ptBR}
-              formatters={{
-                formatCaption: (date, options) => {
-                  const formatted = format(date, "MMMM yyyy", {
-                    locale: options?.locale,
-                  });
-                  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
-                },
-              }}
-              classNames={{
-                selected: "bg-emerald-500 text-white rounded-full",
-                today: "text-emerald-100 dark:text-emerald-800",
-              }}
-            />
+                  setShowCalendar(false);
+                }}
+              >
+                Limpar
+              </button>
+              <button
+                type="button"
+                className="text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 text-sm cursor-pointer p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full"
+                onClick={() => setShowCalendar(false)}
+                aria-label="Fechar calendário"
+              >
+                <XIcon className="w-5 h-5" />
+              </button>
+            </div>
           </div>
-        </>
+
+          <DayPicker
+            mode="single"
+            navLayout="around"
+            selected={selectedDate}
+            onSelect={(date) => {
+              if (date) {
+                const localDate = new Date(
+                  date.getFullYear(),
+                  date.getMonth(),
+                  date.getDate(),
+                  12,
+                  0,
+                  0
+                );
+                const yyyy = localDate.getFullYear();
+                const mm = String(localDate.getMonth() + 1).padStart(2, "0");
+                const dd = String(localDate.getDate()).padStart(2, "0");
+                const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+                field.onChange(formattedDate);
+              } else {
+                field.onChange("");
+              }
+              setShowCalendar(false);
+            }}
+            locale={ptBR}
+            formatters={{
+              formatCaption: (date, options) => {
+                const formatted = format(date, "MMMM yyyy", {
+                  locale: options?.locale,
+                });
+                return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+              },
+            }}
+            classNames={{
+              selected: "bg-emerald-500 text-white rounded-full",
+              today: "text-emerald-100 dark:text-emerald-800",
+            }}
+          />
+        </div>
       )}
 
       {error && <p className="text-sm text-red-500 mt-2">{error}</p>}
