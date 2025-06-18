@@ -39,7 +39,7 @@ const Modal = ({
     >
       <div
         className="
-          w-full sm:w-[90vw] md:w-[600px] lg:w-[720px] xl:w-[800px]
+          modal
           bg-white dark:bg-zinc-950
           border border-zinc-200 dark:border-zinc-800
           rounded-lg
