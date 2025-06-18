@@ -29,7 +29,7 @@ const FilterCard = ({ children, title = "Filtros" }: FilterCardProps) => {
 
   return (
     <div className="rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm">
-      <div className="p-6 pb-3 flex items-center justify-between">
+      <div className="p-6 flex items-center justify-between">
         <h3 className="text-lg font-semibold">{title}</h3>
         <IconButton
           icon={isOpen ? ChevronUp : ChevronDown}
@@ -47,7 +47,7 @@ const FilterCard = ({ children, title = "Filtros" }: FilterCardProps) => {
           transition: "height 300ms ease",
         }}
       >
-        <div className="px-6 pb-6">{children}</div>
+        <div className="px-6 py-6">{children}</div>
       </div>
     </div>
   );
