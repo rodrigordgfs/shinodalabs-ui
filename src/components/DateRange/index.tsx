@@ -27,17 +27,24 @@ const DateRange = ({
 }: DateRangeProps) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const [position, setPosition] = useState<{ top: number; left: number }>({
+  const [position, setPosition] = useState<{
+    top: number;
+    left: number;
+    transform: string;
+  }>({
     top: 0,
     left: 0,
+    transform: "",
   });
 
   const updatePosition = useCallback(() => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
+      const isMobile = window.innerWidth < 640;
       setPosition({
         top: rect.bottom + 8,
-        left: rect.left,
+        left: isMobile ? window.innerWidth / 2 : rect.left,
+        transform: isMobile ? "translateX(-50%)" : "none",
       });
     }
   }, []);
@@ -80,7 +87,11 @@ const DateRange = ({
       {showCalendar && (
         <div
           className="absolute z-50 p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 shadow-lg rounded-lg"
-          style={{ top: position.top, left: position.left }}
+          style={{
+            top: position.top,
+            left: position.left,
+            transform: position.transform,
+          }}
         >
           <div className="flex justify-between items-center w-full">
             <span className="font-medium text-sm text-zinc-700 dark:text-zinc-200">
