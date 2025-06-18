@@ -12,7 +12,7 @@ interface DateRangeProps {
     to: Date | undefined;
   };
   onChange: (range: { from: Date | undefined; to: Date | undefined }) => void;
-  labels: {
+  labels?: {
     filterByDate?: string;
     clear?: string;
     selectDate?: string;
@@ -20,7 +20,11 @@ interface DateRangeProps {
   };
 }
 
-const DateRange = ({ selectedRange, onChange, labels }: DateRangeProps) => {
+const DateRange = ({
+  selectedRange,
+  onChange,
+  labels = {},
+}: DateRangeProps) => {
   const [showCalendar, setShowCalendar] = useState(false);
 
   const formatRange = (from?: Date, to?: Date) => {
@@ -37,8 +41,8 @@ const DateRange = ({ selectedRange, onChange, labels }: DateRangeProps) => {
             ? "bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-400"
             : "border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800"
         }`}
-        aria-label={labels.filterByDate}
-        title={labels.filterByDate}
+        aria-label={labels.filterByDate || "Filtrar por data"}
+        title={labels.filterByDate || "Filtrar por data"}
         onClick={() => setShowCalendar(true)}
       >
         <Calendar className="h-4 w-4" />
@@ -52,7 +56,7 @@ const DateRange = ({ selectedRange, onChange, labels }: DateRangeProps) => {
       {showCalendar && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/10 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-black/10 backdrop-blur-sm flex items-center justify-center"
             onClick={() => setShowCalendar(false)}
           />
 
@@ -66,7 +70,7 @@ const DateRange = ({ selectedRange, onChange, labels }: DateRangeProps) => {
           >
             <div className="flex justify-between items-center w-full">
               <span className="font-medium text-sm text-zinc-700 dark:text-zinc-200">
-                {labels.selectDate}
+                {labels.selectDate || "Selecione uma data"}
               </span>
               <div className="flex gap-2 items-center">
                 <button
@@ -76,12 +80,12 @@ const DateRange = ({ selectedRange, onChange, labels }: DateRangeProps) => {
                   }}
                   className="text-xs text-emerald-500 cursor-pointer"
                 >
-                  {labels.clear}
+                  {labels.clear || "Limpar"}
                 </button>
                 <button
                   onClick={() => setShowCalendar(false)}
                   className="text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 p-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                  aria-label={labels.closeCalendar}
+                  aria-label={labels.closeCalendar || "Fechar calendário"}
                 >
                   <XIcon className="w-4 h-4" />
                 </button>
