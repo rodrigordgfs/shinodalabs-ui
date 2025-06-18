@@ -1,6 +1,6 @@
 {
   "name": "shinodalabs-ui",
-  "version": "1.12.16",
+  "version": "1.13.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
