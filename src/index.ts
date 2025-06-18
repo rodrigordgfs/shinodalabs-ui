@@ -14,3 +14,4 @@ export { default as Dialog } from "./components/Dialog";
 export { default as Pagination } from "./components/Pagination";
 export { default as DateRange } from "./components/DateRange";
 export { default as FilterCard } from "./components/FilterCard";
+export { default as Table } from "./components/Table";
