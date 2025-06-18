@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Calendar, XIcon } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -32,15 +32,23 @@ const DateRange = ({
     left: 0,
   });
 
-  useEffect(() => {
-    if (showCalendar && buttonRef.current) {
+  const updatePosition = useCallback(() => {
+    if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setPosition({
         top: rect.bottom + 8,
         left: rect.left,
       });
     }
-  }, [showCalendar]);
+  }, []);
+
+  useEffect(() => {
+    if (showCalendar) {
+      updatePosition();
+      window.addEventListener("resize", updatePosition);
+      return () => window.removeEventListener("resize", updatePosition);
+    }
+  }, [showCalendar, updatePosition]);
 
   const formatRange = (from?: Date, to?: Date) => {
     if (!from) return "";
