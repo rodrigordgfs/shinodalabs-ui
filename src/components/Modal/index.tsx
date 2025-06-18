@@ -2,10 +2,12 @@
 
 import { ReactNode, MouseEvent } from "react";
 import Button from "../Button";
+import { de } from "date-fns/locale";
 
 interface ModalProps {
   isOpen: boolean;
   title: string;
+  description?: string;
   children: ReactNode;
   onClose: () => void;
   onConfirm?: () => void;
@@ -17,6 +19,7 @@ interface ModalProps {
 const Modal = ({
   isOpen,
   title,
+  description,
   children,
   onClose,
   onConfirm,
@@ -50,7 +53,14 @@ const Modal = ({
       >
         <div className="p-6 overflow-y-auto">
           <h3 className="text-lg font-semibold mb-2">{title}</h3>
-          {children}
+          <div className="w-full max-w-full">
+            {description && (
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">
+                {description}
+              </p>
+            )}
+            {children}
+          </div>
         </div>
 
         <div className="p-6 border-t border-zinc-200 dark:border-zinc-800 flex gap-2 justify-end">
