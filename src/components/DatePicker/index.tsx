@@ -102,7 +102,7 @@ const DatePicker = <TFormValues extends FieldValues>({
   const calendar = (
     <div
       ref={calendarRef}
-      className="fixed z-[9999] bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-lg p-4 w-[320px] max-w-full"
+      className="fixed z-[99999] bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-lg p-4 w-[320px] max-w-full pointer-events-auto"
       style={{ top: position.top, left: position.left }}
     >
       <div className="flex justify-between items-center mb-2">
