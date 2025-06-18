@@ -48,10 +48,9 @@ const Modal = ({
           rounded-lg
           flex flex-col
           max-h-[90vh]
-          overflow-hidden
         "
       >
-        <div className="p-6 overflow-y-auto">
+        <div className="p-6 overflow-y-auto max-h-[calc(90vh - 96px)]">
           <h3 className="text-lg font-semibold mb-2">{title}</h3>
           <div className="w-full max-w-full">
             {description && (
