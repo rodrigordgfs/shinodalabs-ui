@@ -23,7 +23,7 @@ interface HeaderColumn<T> {
   render?: (value: any, row: T) => React.ReactNode;
   format?: (value: any, row: T) => React.ReactNode;
   style?: (value: any, row: T) => string;
-  showMobile?: boolean;
+  showMobile?: boolean; // Se true: mostra apenas no mobile
 }
 
 interface TableHeaderProps<T> {
@@ -39,7 +39,7 @@ const TableHeader = <T,>({ columns }: TableHeaderProps<T>) => (
             key={String(key)}
             className={`py-3 px-4 font-medium text-zinc-500 dark:text-zinc-400 ${
               align === "right" ? "text-right" : "text-left"
-            } ${showMobile ? "table-cell" : "hidden sm:table-cell"}`}
+            } ${showMobile ? "sm:hidden table-cell" : "hidden sm:table-cell"}`}
           >
             {label}
           </th>
@@ -72,13 +72,17 @@ function TableRow<T extends Record<string, any>>({
         ({ key, align, hidden, render, format, style, showMobile }) => {
           if (hidden) return null;
 
+          const visibilityClass = showMobile
+            ? "sm:hidden table-cell"
+            : "hidden sm:table-cell";
+
           if (key === "actions") {
             return (
               <td
                 key="actions"
                 className={`py-3 px-4 ${
                   align === "right" ? "text-right" : "text-left"
-                } ${showMobile ? "table-cell" : "hidden sm:table-cell"}`}
+                } ${visibilityClass}`}
               >
                 <div className="flex justify-end gap-2">
                   {onClickEdit && (
@@ -119,9 +123,7 @@ function TableRow<T extends Record<string, any>>({
               key={String(key)}
               className={`py-3 px-4 ${
                 align === "right" ? "text-right" : "text-left"
-              } ${cellStyle} ${
-                showMobile ? "table-cell" : "hidden sm:table-cell"
-              }`}
+              } ${cellStyle} ${visibilityClass}`}
             >
               {content}
             </td>

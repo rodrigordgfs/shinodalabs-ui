@@ -1,6 +1,6 @@
 {
   "name": "shinodalabs-ui",
-  "version": "1.15.6",
+  "version": "1.15.7",
   "author": "Rodrigo Viegas Rodrigues <shinodalabs@gmail.com>",
   "description": "A collection of reusable React components styled with Tailwind CSS, including buttons, date pickers, modals, tabs, progress bars, forms, checkboxes, radio buttons, selects, inputs, textareas, dropdowns, tooltips, alerts, and badges.",
   "repository": {
