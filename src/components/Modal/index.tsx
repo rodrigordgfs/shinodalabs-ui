@@ -1,8 +1,6 @@
 "use client";
 
 import { ReactNode, MouseEvent } from "react";
-import Button from "../Button";
-import { de } from "date-fns/locale";
 
 interface ModalProps {
   isOpen: boolean;
@@ -37,8 +35,9 @@ const Modal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 flex items-center justify-center p-4 sm:p-6"
+      className="fixed inset-0 z-40 bg-black/60 animate-in fade-in duration-200 flex items-center justify-center p-4 sm:p-6"
       onClick={handleBackdropClick}
+      // NÃO colocar backdrop-blur nem transform aqui
     >
       <div
         className="
@@ -48,9 +47,13 @@ const Modal = ({
           rounded-lg
           flex flex-col
           max-h-[90vh]
+          overflow-visible
+          z-50
+          relative
+          w-full max-w-lg
         "
       >
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh - 96px)]">
+        <div className="p-6 overflow-y-auto">
           <h3 className="text-lg font-semibold mb-2">{title}</h3>
           <div className="w-full max-w-full">
             {description && (
@@ -63,13 +66,21 @@ const Modal = ({
         </div>
 
         <div className="p-6 border-t border-zinc-200 dark:border-zinc-800 flex gap-2 justify-end">
-          <Button disabled={isLoading} onClick={onClose} variant="neutral">
+          <button
+            disabled={isLoading}
+            onClick={onClose}
+            className="btn-neutral"
+          >
             {cancelLabel}
-          </Button>
+          </button>
           {onConfirm && (
-            <Button disabled={isLoading} onClick={onConfirm}>
+            <button
+              disabled={isLoading}
+              onClick={onConfirm}
+              className="btn-primary"
+            >
               {confirmLabel}
-            </Button>
+            </button>
           )}
         </div>
       </div>

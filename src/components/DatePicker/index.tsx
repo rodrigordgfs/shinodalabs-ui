@@ -29,6 +29,7 @@ const DatePicker = <TFormValues extends FieldValues>({
   const inputRef = useRef<HTMLInputElement>(null);
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
+  // Sincroniza selectedDate com o valor do field
   useEffect(() => {
     if (!field.value) {
       setSelectedDate(undefined);
@@ -51,17 +52,27 @@ const DatePicker = <TFormValues extends FieldValues>({
     }
   }, [field.value]);
 
+  // Atualiza posição do calendário no portal
   useEffect(() => {
     const updatePosition = () => {
       if (!inputRef.current || !calendarRef.current) return;
+
       const inputRect = inputRef.current.getBoundingClientRect();
       const calendarHeight = calendarRef.current.offsetHeight;
       const spaceBelow = window.innerHeight - inputRect.bottom;
+      const spaceAbove = inputRect.top;
 
-      const fitsBelow = spaceBelow > calendarHeight + 20;
-      const top = fitsBelow
-        ? inputRect.bottom + window.scrollY + 8
-        : window.innerHeight - calendarHeight - 20;
+      let top: number;
+      if (spaceBelow > calendarHeight + 20) {
+        // cabe abaixo do input
+        top = inputRect.bottom + window.scrollY + 8;
+      } else if (spaceAbove > calendarHeight + 20) {
+        // cabe acima do input
+        top = inputRect.top + window.scrollY - calendarHeight - 8;
+      } else {
+        // não cabe nem acima nem abaixo: fixa a 20px do topo da viewport
+        top = window.scrollY + 20;
+      }
 
       setPosition({
         top,
@@ -80,6 +91,7 @@ const DatePicker = <TFormValues extends FieldValues>({
     }
   }, [showCalendar]);
 
+  // Fecha calendário ao clicar fora
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -102,7 +114,7 @@ const DatePicker = <TFormValues extends FieldValues>({
   const calendar = (
     <div
       ref={calendarRef}
-      className="fixed z-[99999] bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-lg p-4 w-[320px] max-w-full pointer-events-auto"
+      className="fixed z-[99999] bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-700 shadow-lg p-4 max-w-[320px] w-[min(320px,calc(100vw-40px))] pointer-events-auto"
       style={{ top: position.top, left: position.left }}
     >
       <div className="flex justify-between items-center mb-2">
@@ -137,6 +149,7 @@ const DatePicker = <TFormValues extends FieldValues>({
         selected={selectedDate}
         onSelect={(date) => {
           if (date) {
+            // ajusta para meio-dia pra evitar problemas de fuso horário
             const localDate = new Date(
               date.getFullYear(),
               date.getMonth(),
