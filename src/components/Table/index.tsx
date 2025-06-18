@@ -23,6 +23,8 @@ interface HeaderColumn<T> {
   align?: "left" | "right" | "center";
   hidden?: boolean;
   render?: (value: any, row: T) => React.ReactNode;
+  format?: (value: any, row: T) => React.ReactNode;
+  style?: (value: any, row: T) => string;
 }
 
 interface TableHeaderProps<T> {
@@ -32,16 +34,18 @@ interface TableHeaderProps<T> {
 const TableHeader = <T,>({ columns }: TableHeaderProps<T>) => (
   <thead>
     <tr className="border-b border-zinc-200 dark:border-zinc-800">
-      {columns.map(({ key, label, align, hidden }) => (
-        <th
-          key={String(key)}
-          className={`py-3 px-4 font-medium text-zinc-500 dark:text-zinc-400 ${
-            align === "right" ? "text-right" : "text-left"
-          } ${hidden ? "hidden" : ""}`}
-        >
-          {label}
-        </th>
-      ))}
+      {columns.map(({ key, label, align, hidden }) =>
+        hidden ? null : (
+          <th
+            key={String(key)}
+            className={`py-3 px-4 font-medium text-zinc-500 dark:text-zinc-400 ${
+              align === "right" ? "text-right" : "text-left"
+            }`}
+          >
+            {label}
+          </th>
+        )
+      )}
     </tr>
   </thead>
 );
@@ -65,10 +69,9 @@ function TableRow<T extends Record<string, any>>({
 }: TableRowProps<T>) {
   return (
     <tr className="border-b border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900">
-      {columns.map(({ key, align, hidden, render }) => {
+      {columns.map(({ key, align, hidden, render, format, style }) => {
         if (hidden) return null;
 
-        // Lógica para coluna de ações
         if (key === "actions") {
           return (
             <td
@@ -80,22 +83,22 @@ function TableRow<T extends Record<string, any>>({
               <div className="flex justify-end gap-2">
                 {onClickEdit && (
                   <button
-                    className="p-1 rounded-md text-zinc-500 hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-500 cursor-pointer transition-all"
-                    aria-label="Editar transação"
-                    title="Editar transação"
+                    className="p-1 rounded-md text-zinc-500 hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-500 transition-all"
+                    aria-label="Editar"
+                    title="Editar"
                     onClick={onClickEdit}
                   >
-                    <Edit className="h-4 w-4" />
+                    <Edit className="w-4 h-4" />
                   </button>
                 )}
                 {onClickDelete && (
                   <button
-                    className="p-1 rounded-md text-zinc-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 cursor-pointer transition-all"
-                    aria-label="Deletar transação"
-                    title="Deletar transação"
+                    className="p-1 rounded-md text-zinc-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 transition-all"
+                    aria-label="Excluir"
+                    title="Excluir"
                     onClick={onClickDelete}
                   >
-                    <Trash className="h-4 w-4" />
+                    <Trash className="w-4 h-4" />
                   </button>
                 )}
               </div>
@@ -104,14 +107,21 @@ function TableRow<T extends Record<string, any>>({
         }
 
         const value = data[key as keyof T];
+        const content = render
+          ? render(value, data)
+          : format
+          ? format(value, data)
+          : String(value);
+        const cellStyle = style ? style(value, data) : "";
+
         return (
           <td
             key={String(key)}
             className={`py-3 px-4 ${
               align === "right" ? "text-right" : "text-left"
-            }`}
+            } ${cellStyle}`}
           >
-            {render ? render(value, data) : String(value)}
+            {content}
           </td>
         );
       })}
