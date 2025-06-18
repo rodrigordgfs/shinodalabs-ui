@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, MouseEvent } from "react";
+import Button from "../Button";
 
 interface ModalProps {
   isOpen: boolean;
@@ -37,7 +38,6 @@ const Modal = ({
     <div
       className="fixed inset-0 z-40 bg-black/60 animate-in fade-in duration-200 flex items-center justify-center p-4 sm:p-6"
       onClick={handleBackdropClick}
-      // NÃO colocar backdrop-blur nem transform aqui
     >
       <div
         className="
@@ -53,7 +53,7 @@ const Modal = ({
           w-full max-w-lg
         "
       >
-        <div className="p-6 overflow-y-auto">
+        <div className="p-6 overflow-y-auto max-h-[calc(90vh - 96px)]">
           <h3 className="text-lg font-semibold mb-2">{title}</h3>
           <div className="w-full max-w-full">
             {description && (
@@ -66,21 +66,13 @@ const Modal = ({
         </div>
 
         <div className="p-6 border-t border-zinc-200 dark:border-zinc-800 flex gap-2 justify-end">
-          <button
-            disabled={isLoading}
-            onClick={onClose}
-            className="btn-neutral"
-          >
+          <Button disabled={isLoading} onClick={onClose} variant="neutral">
             {cancelLabel}
-          </button>
+          </Button>
           {onConfirm && (
-            <button
-              disabled={isLoading}
-              onClick={onConfirm}
-              className="btn-primary"
-            >
+            <Button disabled={isLoading} onClick={onConfirm}>
               {confirmLabel}
-            </button>
+            </Button>
           )}
         </div>
       </div>
