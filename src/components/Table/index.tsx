@@ -39,7 +39,7 @@ const TableHeader = <T,>({ columns }: TableHeaderProps<T>) => (
             key={String(key)}
             className={`py-3 px-4 font-medium text-zinc-500 dark:text-zinc-400 ${
               align === "right" ? "text-right" : "text-left"
-            } ${!showMobile ? "hidden sm:table-cell" : ""}`}
+            } ${showMobile ? "table-cell" : "hidden sm:table-cell"}`}
           >
             {label}
           </th>
@@ -78,7 +78,7 @@ function TableRow<T extends Record<string, any>>({
                 key="actions"
                 className={`py-3 px-4 ${
                   align === "right" ? "text-right" : "text-left"
-                } ${!showMobile ? "hidden sm:table-cell" : ""}`}
+                } ${showMobile ? "table-cell" : "hidden sm:table-cell"}`}
               >
                 <div className="flex justify-end gap-2">
                   {onClickEdit && (
@@ -119,7 +119,9 @@ function TableRow<T extends Record<string, any>>({
               key={String(key)}
               className={`py-3 px-4 ${
                 align === "right" ? "text-right" : "text-left"
-              } ${cellStyle} ${!showMobile ? "hidden sm:table-cell" : ""}`}
+              } ${cellStyle} ${
+                showMobile ? "table-cell" : "hidden sm:table-cell"
+              }`}
             >
               {content}
             </td>
