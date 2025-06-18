@@ -16,23 +16,24 @@ const TableRoot = ({ children }: TableProps) => {
   );
 };
 
-interface HeaderColumn {
-  key: string;
+interface HeaderColumn<T> {
+  key: keyof T | "actions";
   label: React.ReactNode;
   align?: "left" | "right" | "center";
   hidden?: boolean;
+  render?: (value: any, row: T) => React.ReactNode;
 }
 
-interface TableHeaderProps {
-  columns: HeaderColumn[];
+interface TableHeaderProps<T> {
+  columns: HeaderColumn<T>[];
 }
 
-const TableHeader = ({ columns }: TableHeaderProps) => (
+const TableHeader = <T,>({ columns }: TableHeaderProps<T>) => (
   <thead>
     <tr className="border-b border-zinc-200 dark:border-zinc-800">
       {columns.map(({ key, label, align, hidden }) => (
         <th
-          key={key}
+          key={String(key)}
           className={`py-3 px-4 font-medium text-zinc-500 dark:text-zinc-400 ${
             align === "right" ? "text-right" : "text-left"
           } ${hidden ? "hidden" : ""}`}
@@ -50,12 +51,7 @@ const TableBody = ({ children }: { children: React.ReactNode }) => (
 
 interface TableRowProps<T> {
   data: T;
-  columns: {
-    key: keyof T;
-    align?: "left" | "right" | "center";
-    hidden?: boolean;
-    render?: (value: any, row: T) => React.ReactNode;
-  }[];
+  columns: HeaderColumn<T>[];
   onClickEdit?: () => void;
   onClickDelete?: () => void;
 }
@@ -70,7 +66,39 @@ function TableRow<T extends Record<string, any>>({
     <tr className="border-b border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900">
       {columns.map(({ key, align, hidden, render }) => {
         if (hidden) return null;
-        const value = data[key];
+
+        // Lógica para coluna de ações
+        if (key === "actions") {
+          return (
+            <td
+              key="actions"
+              className={`py-3 px-4 ${
+                align === "right" ? "text-right" : "text-left"
+              }`}
+            >
+              <div className="flex justify-end gap-2">
+                {onClickEdit && (
+                  <button
+                    className="p-1 rounded-md text-zinc-500 hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-500 transition-all"
+                    onClick={onClickEdit}
+                  >
+                    ✏️
+                  </button>
+                )}
+                {onClickDelete && (
+                  <button
+                    className="p-1 rounded-md text-zinc-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 transition-all"
+                    onClick={onClickDelete}
+                  >
+                    🗑️
+                  </button>
+                )}
+              </div>
+            </td>
+          );
+        }
+
+        const value = data[key as keyof T];
         return (
           <td
             key={String(key)}
@@ -82,28 +110,6 @@ function TableRow<T extends Record<string, any>>({
           </td>
         );
       })}
-      {(onClickEdit || onClickDelete) && (
-        <td className="py-3 px-4 text-right">
-          <div className="flex justify-end gap-2">
-            {onClickEdit && (
-              <button
-                className="p-1 rounded-md text-zinc-500 hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-500 transition-all"
-                onClick={onClickEdit}
-              >
-                ✏️
-              </button>
-            )}
-            {onClickDelete && (
-              <button
-                className="p-1 rounded-md text-zinc-500 hover:text-red-500 dark:text-zinc-400 dark:hover:text-red-400 transition-all"
-                onClick={onClickDelete}
-              >
-                🗑️
-              </button>
-            )}
-          </div>
-        </td>
-      )}
     </tr>
   );
 }
