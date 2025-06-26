@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 import Button from "../Button";
 
 interface DialogProps {
@@ -26,11 +26,20 @@ const Dialog = ({
 }: DialogProps) => {
   if (!isOpen) return null;
 
+   const handleBackdropClick = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target === e.currentTarget) {
+        onClose();
+      }
+    };
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 flex items-center justify-center p-4 sm:p-6">
+    <div
+      className="fixed inset-0 z-40 bg-black/60 animate-in fade-in duration-200 flex items-center justify-center p-4 sm:p-6"
+      onClick={handleBackdropClick}
+    >
       <div
         className="
-          w-full h-full sm:h-auto sm:max-w-sm
+          w-full max-w-md
           bg-white dark:bg-zinc-950
           border border-zinc-200 dark:border-zinc-800
           sm:rounded-lg rounded-none
