@@ -88,18 +88,13 @@ const MonthDatePicker = ({
   if (!isOpen) return null;
 
   return (
-    <>
-      {/* Fundo escuro com blur */}
-      <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" />
-
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
       {/* Modal */}
       <div
         ref={modalRef}
-        className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-          bg-white dark:bg-zinc-900 rounded-lg border border-zinc-300 dark:border-zinc-700
-          shadow-lg p-6 w-[320px] max-w-full"
+        className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-300 dark:border-zinc-700 shadow-lg p-6 w-[320px] max-w-full"
       >
-        {/* Botão fechar no topo, alinhado à direita */}
+        {/* Botão fechar */}
         <div className="flex justify-end mb-2">
           <button
             type="button"
@@ -152,7 +147,7 @@ const MonthDatePicker = ({
                   onChange(new Date(year, index, 1));
                   onClose();
                 }}
-                className={`py-2 rounded text-sm font-medium ${
+                className={`py-2 rounded text-sm font-medium transition ${
                   disabled
                     ? "text-zinc-400 cursor-not-allowed"
                     : isSelected
@@ -167,7 +162,7 @@ const MonthDatePicker = ({
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
