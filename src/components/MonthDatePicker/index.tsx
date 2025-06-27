@@ -130,8 +130,8 @@ const MonthDatePicker = ({
           </button>
         </div>
 
-        {/* Grade de meses */}
-        <div className="grid grid-cols-3 gap-2">
+        {/* Grade de meses com Flex */}
+        <div className="flex flex-wrap gap-2">
           {monthNames.map((monthName, index) => {
             const disabled = isDisabled(year, index);
             const isSelected =
@@ -146,7 +146,7 @@ const MonthDatePicker = ({
                   onChange(new Date(year, index, 1));
                   onClose();
                 }}
-                className={`w-full text-center py-2 rounded text-sm font-medium transition
+                className={`basis-1/3 text-center py-2 rounded text-sm font-medium transition
                   ${
                     disabled
                       ? "text-zinc-400 cursor-not-allowed"
