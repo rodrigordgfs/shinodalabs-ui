@@ -89,7 +89,6 @@ const MonthDatePicker = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-      {/* Modal */}
       <div
         ref={modalRef}
         className="bg-white dark:bg-zinc-900 rounded-lg border border-zinc-300 dark:border-zinc-700 shadow-lg p-6 w-[320px] max-w-full"
@@ -147,13 +146,14 @@ const MonthDatePicker = ({
                   onChange(new Date(year, index, 1));
                   onClose();
                 }}
-                className={`py-2 rounded text-sm font-medium transition ${
-                  disabled
-                    ? "text-zinc-400 cursor-not-allowed"
-                    : isSelected
-                    ? "bg-emerald-500 text-white"
-                    : "hover:bg-emerald-100 dark:hover:bg-emerald-700"
-                }`}
+                className={`w-full text-center py-2 rounded text-sm font-medium transition
+                  ${
+                    disabled
+                      ? "text-zinc-400 cursor-not-allowed"
+                      : isSelected
+                      ? "bg-emerald-500 text-white"
+                      : "hover:bg-emerald-100 dark:hover:bg-emerald-700"
+                  }`}
                 type="button"
               >
                 {monthName}
