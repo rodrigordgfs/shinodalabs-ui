@@ -130,8 +130,8 @@ const MonthDatePicker = ({
           </button>
         </div>
 
-        {/* Grade de meses com Flex */}
-        <div className="flex flex-wrap gap-2">
+        {/* Grade de meses em 3 colunas com flex */}
+        <div className="flex flex-wrap -mx-1">
           {monthNames.map((monthName, index) => {
             const disabled = isDisabled(year, index);
             const isSelected =
@@ -139,25 +139,26 @@ const MonthDatePicker = ({
               selectedDate?.getMonth() === index;
 
             return (
-              <button
-                key={monthName}
-                disabled={disabled}
-                onClick={() => {
-                  onChange(new Date(year, index, 1));
-                  onClose();
-                }}
-                className={`basis-1/3 text-center py-2 rounded text-sm font-medium transition
-                  ${
-                    disabled
-                      ? "text-zinc-400 cursor-not-allowed"
-                      : isSelected
-                      ? "bg-emerald-500 text-white"
-                      : "hover:bg-emerald-100 dark:hover:bg-emerald-700"
-                  }`}
-                type="button"
-              >
-                {monthName}
-              </button>
+              <div key={monthName} className="w-1/3 px-1 mb-2">
+                <button
+                  disabled={disabled}
+                  onClick={() => {
+                    onChange(new Date(year, index, 1));
+                    onClose();
+                  }}
+                  className={`w-full text-center py-2 rounded text-sm font-medium transition
+                    ${
+                      disabled
+                        ? "text-zinc-400 cursor-not-allowed"
+                        : isSelected
+                        ? "bg-emerald-500 text-white"
+                        : "hover:bg-emerald-100 dark:hover:bg-emerald-700"
+                    }`}
+                  type="button"
+                >
+                  {monthName}
+                </button>
+              </div>
             );
           })}
         </div>
